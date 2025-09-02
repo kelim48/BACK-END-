@@ -9,7 +9,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
 // Prefer your own env var, else default to Shyft free RPC
-const RPC_URL = "https://mainnet.helius-rpc.com/?api-be7ebf23-34de-415c-9919-8a1a0389f396";
+const RPC_URL = "https://mainnet.helius-rpc.com/?api-key=be7ebf23-34de-415c-9919-8a1a0389f396";
 const connection = new Connection(RPC_URL, 'confirmed');
 
 function generatePhrase(data) {
