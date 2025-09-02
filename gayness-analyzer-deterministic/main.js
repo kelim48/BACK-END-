@@ -19,6 +19,10 @@ const phrases = [
   "Exploring every corner of Solana nightlife.",
   "Low-key but still sparkling with pride."
 ];
+function isValidSolanaAddress(addr) {
+  const base58regex = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
+  return base58regex.test(addr);
+}
 
 function hashWallet(str) {
   let hash = 5381;
@@ -44,8 +48,11 @@ const steps = [
 ];
 
 analyzeBtn.addEventListener("click", () => {
-  const wallet = walletInput.value.trim();
-  if (!wallet) return;
+ const wallet = walletInput.value.trim();
+if (!isValidSolanaAddress(wallet)) {
+  alert("Please enter a valid Solana wallet address.");
+  return;
+}
   frontDiv.querySelector("input").disabled = true;
   analyzeBtn.disabled = true;
   loadingDiv.classList.remove("hidden");
@@ -73,7 +80,7 @@ analyzeBtn.addEventListener("click", () => {
 againBtn.addEventListener("click", () => { window.location.reload(); });
 
 shareBtn.addEventListener("click", () => {
-  html2canvas(document.querySelector("#capture")).then(canvas => {
+  html2canvas(document.querySelector("#back")).then(canvas => {
     const dataUrl = canvas.toDataURL("image/png");
     const a = document.createElement("a");
     a.href = dataUrl;
@@ -84,7 +91,7 @@ shareBtn.addEventListener("click", () => {
 });
 
 downloadBtn.addEventListener("click", () => {
-  html2canvas(document.querySelector("#capture")).then(canvas => {
+  html2canvas(document.querySelector("#back")).then(canvas => {
     const dataUrl = canvas.toDataURL("image/png");
     const a = document.createElement("a");
     a.href = dataUrl;
