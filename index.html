@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trenches Gayness Analyzer 🏳️‍🌈</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wrapper">
+    <h1 class="title">Trenches Gayness Analyzer 🏳️‍🌈</h1>
+
+    <section class="card" id="card">
+      <div id="front">
+        <input id="wallet" type="text" placeholder="Enter your Solana wallet address" />
+        <button id="analyze">Analyze</button>
+        <div id="loading" class="loading hidden"></div>
+      </div>
+
+      <div id="back" class="hidden">
+        <div id="capture" class="result">
+          <h2 id="score">0%</h2>
+          <div class="progress"><div id="progressFill"></div></div>
+          <p id="phrase"></p>
+        </div>
+        <button id="share">Share on Twitter</button>
+        <button id="download">Download Image</button>
+        <button id="again">Analyze Again</button>
+      </div>
+    </section>
+
+    <footer>
+      Made with ❤️ • Fund the leaderboard of shame: 
+      <span class="wallet">2BA85mMDfBjJtNFrjnRVyRiwgspXPUVgG6FZEfwGU34F</span>
+    </footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
