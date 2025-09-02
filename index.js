@@ -9,7 +9,7 @@ app.use(express.json());
 const PORT = process.env.PORT || 3000;
 
 // Prefer your own env var, else default to Shyft free RPC
-const RPC_URL = process.env.RPC_URL || "https://rpc.shyft.to?api_key=demo";
+const RPC_URL = process.env.RPC_URL || "https://api.mainnet-beta.solana.com";
 const connection = new Connection(RPC_URL, 'confirmed');
 
 function generatePhrase(data) {
