@@ -13,7 +13,7 @@ const againBtn = document.getElementById("again");
 const phrases = [
   "Serving DeFi realness on-chain. Your portfolio is giving main character energy! 💅",
   "Too fruity to fail. The blockchain can't handle all this rainbow energy! 🌈",
-  "Certified rainbow wallet. Every transaction screams fabulous! ✨",
+  "Certified rainbow wallet. Every transaction screams fabulous ✨",
   "Closet's open, the blockchain knows. Your on-chain activity is telling stories! 👀",
   "Chaotic but fabulous activity detected. Messy wallet, flawless vibes! 💖",
 ];
