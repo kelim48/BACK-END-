@@ -13,7 +13,7 @@
     <section class="card" id="card">
       <div id="front">
         <input id="wallet" type="text" placeholder="Enter your Solana wallet address" />
-        <button id="analyze">Analyze</button>
+        <button id="analyze">🔮 Analyze Gayness</button>
         <div id="loading" class="loading hidden"></div>
       </div>
 
@@ -23,19 +23,19 @@
           <div class="progress"><div id="progressFill"></div></div>
           <p id="phrase"></p>
         </div>
-        <button id="share">Share on Twitter</button>
-        <button id="download">Download Image</button>
-        <button id="again">Analyze Again</button>
+        <button id="share">📸 Share on Twitter</button>
+        <button id="download">⬇️ Download Image</button>
+        <button id="again">🔄 Analyze Again</button>
       </div>
     </section>
 
     <footer>
-      Made with ❤️ • Fund the leaderboard of shame: 
-      <span class="wallet">2BA85mMDfBjJtNFrjnRVyRiwgspXPUVgG6FZEfwGU34F</span>
+      Made with 💖 • Fund the leaderboard of shame: 
+      <span class="wallet" onclick="copyWallet()" title="Click to copy">2BA85mMDfBjJtNFrjnRVyRiwgspXPUVgG6FZEfwGU34F</span>
     </footer>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-  <script src="main.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
