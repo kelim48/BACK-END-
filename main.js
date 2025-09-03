@@ -11,18 +11,12 @@ const downloadBtn = document.getElementById("download");
 const againBtn = document.getElementById("again");
 
 const phrases = [
-  "Serving DeFi realness on-chain.",
-  "Too fruity to fail.",
-  "Certified rainbow wallet.",
-  "Closet’s open, the blockchain knows.",
-  "Chaotic but fabulous activity detected.",
-  "Exploring every corner of Solana nightlife.",
-  "Low-key but still sparkling with pride."
+  "Serving DeFi realness on-chain. Your portfolio is giving main character energy! 💅",
+  "Too fruity to fail. The blockchain can't handle all this rainbow energy! 🌈",
+  "Certified rainbow wallet. Every transaction screams fabulous! ✨",
+  "Closet's open, the blockchain knows. Your on-chain activity is telling stories! 👀",
+  "Chaotic but fabulous activity detected. Messy wallet, flawless vibes! 💖",
 ];
-function isValidSolanaAddress(addr) {
-  const base58regex = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
-  return base58regex.test(addr);
-}
 
 function hashWallet(str) {
   let hash = 5381;
@@ -40,62 +34,22 @@ function analyzeWallet(wallet) {
   return { percent, phrase };
 }
 
-const steps = [
-  "Analyzing wallet activities...",
-  "Analyzing token holdings...",
-  "Analyzing transactions...",
-  "Adding extra fruity metrics..."
-];
-
 analyzeBtn.addEventListener("click", () => {
- const wallet = walletInput.value.trim();
-if (!isValidSolanaAddress(wallet)) {
-  alert("Please enter a valid Solana wallet address.");
-  return;
-}
-  frontDiv.querySelector("input").disabled = true;
-  analyzeBtn.disabled = true;
-  loadingDiv.classList.remove("hidden");
-  loadingDiv.innerHTML = "";
-  let idx = 0;
+  const wallet = walletInput.value.trim();
+  const result = analyzeWallet(wallet);
+  scoreEl.textContent = result.percent + "%";
+  phraseEl.textContent = result.phrase;
 
-  const interval = setInterval(() => {
-    if (idx < steps.length) {
-      const p = document.createElement("p");
-      p.textContent = steps[idx];
-      loadingDiv.appendChild(p);
-      idx++;
-    } else {
-      clearInterval(interval);
-      const result = analyzeWallet(wallet);
-      scoreEl.textContent = result.percent + "%";
-      phraseEl.textContent = result.phrase;
-      progressFill.style.width = result.percent + "%";
-      frontDiv.classList.add("hidden");
-      backDiv.classList.remove("hidden");
-    }
-  }, 1000);
+  progressFill.style.width = result.percent + "%";
+
+  frontDiv.classList.add("hidden");
+  backDiv.classList.remove("hidden");
 });
 
-againBtn.addEventListener("click", () => { window.location.reload(); });
+againBtn.addEventListener("click", () => {
+  backDiv.classList.add("hidden");
+  frontDiv.classList.remove("hidden");
 
-shareBtn.addEventListener("click", () => {
-  html2canvas(document.querySelector("#back")).then(canvas => {
-    const dataUrl = canvas.toDataURL("image/png");
-    const a = document.createElement("a");
-    a.href = dataUrl;
-    a.download = "gayness-result.png";
-    a.click();
-    alert("Image downloaded. Upload it manually to Twitter with your tweet!");
-  });
-});
-
-downloadBtn.addEventListener("click", () => {
-  html2canvas(document.querySelector("#back")).then(canvas => {
-    const dataUrl = canvas.toDataURL("image/png");
-    const a = document.createElement("a");
-    a.href = dataUrl;
-    a.download = "gayness-result.png";
-    a.click();
-  });
+  walletInput.value = "";
+  progressFill.style.width = "0%";
 });
