@@ -1,41 +1,654 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Trenches Gayness Analyzer 🏳️‍🌈</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+```
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+  background: #0b0914;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(60, 60, 80, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(80, 60, 90, 0.08) 0%, transparent 50%);
+  color: #eee;
+  text-align: center;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Animated background particles */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Ccircle cx='10' cy='10' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  animation: float 20s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+.wrapper {
+  max-width: 650px;
+  margin: 60px auto;
+  padding: 30px;
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, #9ca3af 0%, #e5e7eb 50%, #f3f4f6 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 30px;
+  animation: gradientShift 3s ease-in-out infinite;
+  filter: drop-shadow(0 4px 20px rgba(255, 255, 255, 0.1));
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.card {
+  background: rgba(19, 16, 41, 0.6);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  min-height: 400px;
+  perspective: 1000px;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+#front, #back {
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-flip-enter {
+  animation: flipIn 0.8s ease-out;
+}
+
+@keyframes flipIn {
+  0% {
+    opacity: 0;
+    transform: rotateY(-90deg) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateY(0deg) scale(1);
+  }
+}
+
+input {
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-family: 'SF Mono', Monaco, monospace;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+input:focus {
+  outline: none;
+  border-color: rgba(156, 163, 175, 0.4);
+  box-shadow: 0 0 0 4px rgba(156, 163, 175, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+button {
+  margin: 8px;
+  padding: 16px 32px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #4b5563 0%, #6b7280 100%);
+  background-size: 200% 200%;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+  background-position: 100% 100%;
+}
+
+button:hover::before {
+  left: 100%;
+}
+
+button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.loading {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #bbb;
+  min-height: 120px;
+}
+
+.loading p {
+  margin: 12px 0;
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+  position: relative;
+}
+
+.loading p::before {
+  content: '🔍';
+  margin-right: 10px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.result {
+  padding: 20px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 30px;
+}
+
+.result h2 {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  margin: 20px 0;
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 900;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.progress {
+  background: rgba(51, 51, 51, 0.5);
+  border-radius: 12px;
+  height: 20px;
+  margin: 20px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  animation: shimmer 2s infinite;
+}
+
+#progressFill {
+  background: linear-gradient(90deg, #6b7280 0%, #9ca3af 50%, #d1d5db 100%);
+  height: 100%;
+  width: 0%;
+  border-radius: 12px;
+  transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(107, 114, 128, 0.3);
+}
+
+#progressFill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: progressShine 2s ease-out 1s;
+}
+
+@keyframes progressShine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+.result p {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 20px 0;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+footer {
+  margin-top: 40px;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+.wallet {
+  font-family: 'SF Mono', Monaco, monospace;
+  color: #9ca3af;
+  font-size: 0.85rem;
+  background: rgba(156, 163, 175, 0.1);
+  padding: 4px 8px;
+  border-radius: 6px;
+  margin: 0 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.wallet:hover {
+  background: rgba(156, 163, 175, 0.2);
+  color: #fff;
+}
+
+/* Enhanced mobile responsiveness */
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 20px;
+    margin: 40px auto;
+  }
+  
+  .card {
+    padding: 25px;
+  }
+  
+  button {
+    padding: 14px 24px;
+    margin: 6px 3px;
+    font-size: 0.9rem;
+  }
+  
+  .result h2 {
+    font-size: 3rem;
+  }
+}
+
+/* Copy animation */
+.wallet-copied {
+  animation: copySuccess 0.6s ease;
+}
+
+@keyframes copySuccess {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); background: rgba(0, 255, 0, 0.3); }
+  100% { transform: scale(1); }
+}
+```
+
+  </style>
 </head>
 <body>
   <main class="wrapper">
     <h1 class="title">Trenches Gayness Analyzer 🏳️‍🌈</h1>
 
-    <section class="card" id="card">
-      <div id="front">
-        <input id="wallet" type="text" placeholder="Enter your Solana wallet address" />
-        <button id="analyze">🔮 Analyze Gayness</button>
-        <div id="loading" class="loading hidden"></div>
-      </div>
+```
+<section class="card" id="card">
+  <div id="front">
+    <input id="wallet" type="text" placeholder="Enter your Solana wallet address" />
+    <button id="analyze">🔮 Analyze Gayness</button>
+    <div id="loading" class="loading hidden"></div>
+  </div>
 
-      <div id="back" class="hidden">
-        <div id="capture" class="result">
-          <h2 id="score">0%</h2>
-          <div class="progress"><div id="progressFill"></div></div>
-          <p id="phrase"></p>
-        </div>
-        <button id="share">📸 Share on Twitter</button>
-        <button id="download">⬇️ Download Image</button>
-        <button id="again">🔄 Analyze Again</button>
-      </div>
-    </section>
+  <div id="back" class="hidden">
+    <div id="capture" class="result">
+      <h2 id="score">0%</h2>
+      <div class="progress"><div id="progressFill"></div></div>
+      <p id="phrase"></p>
+    </div>
+    <button id="share">📸 Share on Twitter</button>
+    <button id="download">⬇️ Download Image</button>
+    <button id="again">🔄 Analyze Again</button>
+  </div>
+</section>
 
-    <footer>
-      Made with 💖 • Fund the leaderboard of shame: 
-      <span class="wallet" onclick="copyWallet()" title="Click to copy">2BA85mMDfBjJtNFrjnRVyRiwgspXPUVgG6FZEfwGU34F</span>
-    </footer>
+<footer>
+  Made with 💖 • Fund the leaderboard of shame: 
+  <span class="wallet" onclick="copyWallet()" title="Click to copy">2BA85mMDfBjJtNFrjnRVyRiwgspXPUVgG6FZEfwGU34F</span>
+</footer>
+```
+
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-  <script src="script.js"></script>
+
+  <script>
+    const walletInput = document.getElementById("wallet");
+    const analyzeBtn = document.getElementById("analyze");
+    const loadingDiv = document.getElementById("loading");
+    const backDiv = document.getElementById("back");
+    const frontDiv = document.getElementById("front");
+    const scoreEl = document.getElementById("score");
+    const phraseEl = document.getElementById("phrase");
+    const progressFill = document.getElementById("progressFill");
+    const shareBtn = document.getElementById("share");
+    const downloadBtn = document.getElementById("download");
+    const againBtn = document.getElementById("again");
+
+    // Enhanced phrases with more personality
+    const phrases = [
+      "Serving DeFi realness on-chain. Your portfolio is giving main character energy! 💅",
+      "Too fruity to fail. The blockchain can't handle all this rainbow energy! 🌈",
+      "Certified rainbow wallet. Every transaction screams fabulous! ✨",
+      "Closet's open, the blockchain knows. Your on-chain activity is telling stories! 👀",
+      "Chaotic but fabulous activity detected. Messy wallet, flawless vibes! 💖",
+      "Exploring every corner of Solana nightlife. You really said 'I'll try everything!' 🎉",
+      "Low-key but still sparkling with pride. Subtle gay energy is still gay energy! 🏳️‍🌈",
+      "Your wallet is giving 'I know what I'm about' energy and we're here for it! 💪",
+      "The way you handle your tokens... *chef's kiss* Pure artistry! 👨‍🍳💋",
+      "Honey, your transaction history is a whole mood board! 📚✨"
+    ];
+
+    function isValidSolanaAddress(addr) {
+      const base58regex = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
+      return base58regex.test(addr);
+    }
+
+    function hashWallet(str) {
+      let hash = 5381;
+      str = str.trim().toLowerCase();
+      for (let i = 0; i < str.length; i++) {
+        hash = ((hash << 5) + hash) + str.charCodeAt(i);
+      }
+      return hash >>> 0;
+    }
+
+    function analyzeWallet(wallet) {
+      const h = hashWallet(wallet);
+      const percent = h % 101;
+      const phrase = phrases[(h >> 8) % phrases.length];
+      return { percent, phrase };
+    }
+
+    // Enhanced loading messages
+    const steps = [
+      "🔍 Scanning wallet activities...",
+      "💎 Analyzing token holdings...",
+      "📊 Processing transaction patterns...",
+      "✨ Adding extra fruity metrics...",
+      "🌈 Calculating rainbow coefficient..."
+    ];
+
+    analyzeBtn.addEventListener("click", async () => {
+      const wallet = walletInput.value.trim();
+      if (!isValidSolanaAddress(wallet)) {
+        showError("Please enter a valid Solana wallet address! 🤔");
+        return;
+      }
+
+      // Enhanced loading animation
+      frontDiv.querySelector("input").disabled = true;
+      analyzeBtn.disabled = true;
+      loadingDiv.classList.remove("hidden");
+      loadingDiv.innerHTML = "";
+      let idx = 0;
+
+      const interval = setInterval(() => {
+        if (idx < steps.length) {
+          const p = document.createElement("p");
+          p.textContent = steps[idx];
+          p.style.animationDelay = `${idx * 0.2}s`;
+          loadingDiv.appendChild(p);
+          idx++;
+        } else {
+          clearInterval(interval);
+          
+          setTimeout(() => {
+            const result = analyzeWallet(wallet);
+            showResult(result);
+          }, 800);
+        }
+      }, 800);
+    });
+
+    function showResult(result) {
+      scoreEl.textContent = result.percent + "%";
+      phraseEl.textContent = result.phrase;
+      
+      // Animate progress bar
+      setTimeout(() => {
+        progressFill.style.width = result.percent + "%";
+      }, 300);
+
+      frontDiv.classList.add("hidden");
+      backDiv.classList.remove("hidden");
+      backDiv.classList.add("card-flip-enter");
+    }
+
+    function showError(message) {
+      const existingError = document.querySelector('.error-message');
+      if (existingError) existingError.remove();
+
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'error-message';
+      errorDiv.style.cssText = `
+        background: rgba(255, 71, 87, 0.1);
+        color: #ff4757;
+        padding: 12px;
+        border-radius: 12px;
+        margin: 10px 0;
+        border: 1px solid rgba(255, 71, 87, 0.3);
+        animation: shake 0.5s ease;
+      `;
+      errorDiv.textContent = message;
+      
+      walletInput.parentNode.insertBefore(errorDiv, walletInput.nextSibling);
+      
+      setTimeout(() => errorDiv.remove(), 3000);
+    }
+
+    againBtn.addEventListener("click", () => {
+      // Smooth transition back
+      backDiv.classList.add("hidden");
+      frontDiv.classList.remove("hidden");
+      
+      // Reset form
+      walletInput.value = "";
+      walletInput.disabled = false;
+      analyzeBtn.disabled = false;
+      loadingDiv.classList.add("hidden");
+      progressFill.style.width = "0%";
+    });
+
+    // Enhanced share functionality
+    shareBtn.addEventListener("click", async () => {
+      try {
+        shareBtn.textContent = "📸 Generating...";
+        shareBtn.disabled = true;
+
+        const canvas = await html2canvas(document.querySelector("#capture"), {
+          backgroundColor: '#131029',
+          scale: 2,
+          logging: false,
+          useCORS: true
+        });
+        
+        const dataUrl = canvas.toDataURL("image/png");
+        
+        // Download image
+        const a = document.createElement("a");
+        a.href = dataUrl;
+        a.download = `trenches-gayness-${Date.now()}.png`;
+        a.click();
+        
+        // Open Twitter with pre-filled text
+        const twitterText = encodeURIComponent(
+          `Just checked my crypto wallet's gayness level! 🏳️‍🌈✨\n\nCheck yours at: ${window.location.href}`
+        );
+        window.open(`https://twitter.com/intent/tweet?text=${twitterText}`, '_blank');
+        
+        shareBtn.textContent = "✅ Shared!";
+        setTimeout(() => {
+          shareBtn.textContent = "📸 Share on Twitter";
+          shareBtn.disabled = false;
+        }, 2000);
+        
+      } catch (error) {
+        shareBtn.textContent = "❌ Error";
+        setTimeout(() => {
+          shareBtn.textContent = "📸 Share on Twitter";
+          shareBtn.disabled = false;
+        }, 2000);
+      }
+    });
+
+    downloadBtn.addEventListener("click", async () => {
+      try {
+        downloadBtn.textContent = "⬇️ Creating...";
+        downloadBtn.disabled = true;
+
+        const canvas = await html2canvas(document.querySelector("#capture"), {
+          backgroundColor: '#131029',
+          scale: 2,
+          logging: false,
+          useCORS: true
+        });
+        
+        const dataUrl = canvas.toDataURL("image/png");
+        const a = document.createElement("a");
+        a.href = dataUrl;
+        a.download = `trenches-gayness-${Date.now()}.png`;
+        a.click();
+        
+        downloadBtn.textContent = "✅ Downloaded!";
+        setTimeout(() => {
+          downloadBtn.textContent = "⬇️ Download Image";
+          downloadBtn.disabled = false;
+        }, 2000);
+        
+      } catch (error) {
+        downloadBtn.textContent = "❌ Error";
+        setTimeout(() => {
+          downloadBtn.textContent = "⬇️ Download Image";
+          downloadBtn.disabled = false;
+        }, 2000);
+      }
+    });
+
+    // Copy wallet function
+    function copyWallet() {
+      const walletAddress = "2BA85mMDfBjJtNFrjnRVyRiwgspXPUVgG6FZEfwGU34F";
+      const walletEl = document.querySelector('.wallet');
+      
+      navigator.clipboard.writeText(walletAddress).then(() => {
+        walletEl.textContent = "✅ Copied!";
+        walletEl.classList.add('wallet-copied');
+        
+        setTimeout(() => {
+          walletEl.textContent = walletAddress;
+          walletEl.classList.remove('wallet-copied');
+        }, 2000);
+      });
+    }
+
+    // Enter key support
+    walletInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        analyzeBtn.click();
+      }
+    });
+
+    // Auto-focus input on load
+    window.addEventListener('load', () => {
+      walletInput.focus();
+    });
+  </script>
+
 </body>
 </html>
